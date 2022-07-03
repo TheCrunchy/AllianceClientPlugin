@@ -32,7 +32,7 @@ namespace AllianceClientPlugin
 
         public static String title = "";
         public static Color AllianceColor = Color.Cyan;
-  
+
 
 
         public static Boolean InAllianceChat = false;
@@ -41,7 +41,7 @@ namespace AllianceClientPlugin
         [HarmonyPatch("multiplayer_ScriptedChatMessageReceived")]
         class ScriptedChatMessage
         {
-            static void Postfix(string message, string author, string font, Color color)
+            static Boolean Postfix(string message, string author, string font, Color color)
             {
                 if (author.Equals("AllianceChatStatus"))
                 {
@@ -54,7 +54,7 @@ namespace AllianceClientPlugin
                         InAllianceChat = false;
                     }
                 }
-                    if (author.Equals("AllianceColorConfig"))
+                if (author.Equals("AllianceColorConfig"))
                 {
                     try
                     {
@@ -66,17 +66,19 @@ namespace AllianceClientPlugin
                     catch (Exception e)
                     {
 
-                        return;
+                        return false;
                     }
-              
-                    return;
+
+                    return false;
                 }
                 if (author.Equals("AllianceTitleConfig"))
                 {
                     //  title = messageText.Split
                     title = message;
-                    return;
+                    return false;
                 }
+
+                return true;
             }
         }
 
@@ -115,6 +117,6 @@ namespace AllianceClientPlugin
         {
         }
 
-      
+
     }
 }
