@@ -10,6 +10,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using VRage.GameServices;
 using VRage.Plugins;
 using VRageMath;
 
@@ -86,7 +87,7 @@ namespace AllianceClientPlugin
         [HarmonyPatch("OnMultiplayer_ChatMessageReceived")]
         class ChatMessage
         {
-            static Boolean Prefix(ulong steamUserId, string messageText, ChatChannel channel, long targetId, string customAuthorName = null)
+            static Boolean Prefix(ulong steamUserId, string messageText, ChatChannel channel, long targetId, ChatMessageCustomData? customData)
             {
 
 
